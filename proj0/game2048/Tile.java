@@ -8,6 +8,9 @@ public class Tile {
     /** A new tile with VALUE as its value at (ROW, COL).  This
      *  constructor is private, so all tiles are created by the
      *  factory methods create, move, and merge. */
+    /** contructor is a special method of a class, using the same name
+     * as its class. Contructor will be called when instanting by special key new*/
+
     private Tile(int value, int col, int row) {
         this.value = value;
         this.row = row;
