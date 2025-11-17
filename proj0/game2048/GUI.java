@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
  *  @author P. N. Hilfinger
  */
 class GUI extends TopLevel implements Observer {
-
     /** Minimum size of board in pixels. */
     private static final int MIN_SIZE = 500;
 
