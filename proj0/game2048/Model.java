@@ -2,6 +2,8 @@ package game2048;
 
 import java.util.Formatter;
 import java.util.Observable;
+import java.util.TreeMap;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /** The state of a game of 2048.
@@ -114,6 +116,30 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+        if (side == Side.NORTH){
+            for(int c =0; c<=3; c++){
+                for (int r=2;r>=0;r-=1){
+                    if (board.tile(c,r) == null){
+                        continue; }
+
+                    Tile Merged = IfMerge(tile(c,r));
+                    if (Merged.value()!=tile(c,r).value()){
+                        board.move(Merged.col(),Merged.row(),tile(c,r));
+                        this.score += tile(c,r).value();
+                        changed = true;
+                    }
+
+                    int[] Moved = IfMove(tile(c,r));
+                    int MovedCol = Moved[0];
+                    int MovedRow = Moved[1];
+                    if (MovedRow != tile(c,r).row()){
+                        board.move(MovedCol,MovedRow,tile(c,r));
+                        changed = true;
+                    }
+
+                }
+            }
+        }
         checkGameOver();
         if (changed) {
             setChanged();
@@ -121,6 +147,28 @@ public class Model extends Observable {
         return changed;
     }
 
+    private Tile IfMerge(Tile tile){
+       for(int row=tile.row();row <=3;row++){
+           Tile temp = this.board.tile(tile.col(),row);
+           if (temp != null) {
+               if(temp.value() == tile.value()){
+                   return temp;
+               }
+           }
+       }
+        return tile;
+    }
+
+    private int[] IfMove(Tile tile) {
+        int currow = tile.row();
+        for (int row = tile.row(); row <= 3; row++) {
+            Tile temp = this.board.tile(tile.col(), row);
+            if (temp == null) {
+                currow = row;
+            }
+        }
+        return new int[]{tile.col(),currow};
+    }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
      */

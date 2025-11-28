@@ -36,29 +36,34 @@ public class DebugExercise2 {
     }
 
     /** Returns a new array where entry i is the max of
-     * a[i] and b[i]. For example, if a = {1, -10, 3}
-     * and b = {0, 20, 5}, this function will return {1, 20, 5}.
+     * a[i] and compared[i]. For example, if a = {1, -10, 3}
+     * and compared = {0, 20, 5}, this function will return {1, 20, 5}.
      * */
-    public static int[] arrayMax(int[] a, int[] b) {
-        if (a.length != b.length) {
+    public static int[] arrayMax(int[] returned, int[]compared) {
+        /** Judge weather the length of the two array is same**/
+        if (returned.length != compared.length) {
+
             System.out.println("ERROR! Arrays don't match");
             return null;
         }
-        int[] returnArray = new int[a.length];
-        for (int i = 0; i < a.length; i += 1) {
-            int biggerValue = max(a[i], b[i]);
-            returnArray[i] = biggerValue;
+        /** Iterate through the two array
+         * if entry in array ruturned is bigger than or equal to that in
+         * array compared then we keep it ,vice vs we replace it.
+         */
+        for (int i = 0; i < returned.length; i += 1) {
+           if (returned[i] < compared[i]){
+               returned[i] = compared[i];
+           }
         }
-
-        return returnArray;
+        return returned;
     }
 
-    /** Returns the sum of all elements in x. */
-    public static int arraySum(int[] x) {
+    /** Returns the sum of all elements in input. */
+    public static int arraySum(int[] input) {
         int i = 0;
         int sum = 0;
-        while (i < x.length) {
-            sum = sum + add(sum, x[i]);
+        while (i < input.length) {
+            sum = sum + input[i];
             i = i + 1;
         }
         return sum;
