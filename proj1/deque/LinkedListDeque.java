@@ -3,7 +3,6 @@ package deque;
 
 import java.util.NoSuchElementException;
 import java.util.Iterator;
-import java.util.Objects;
 
 public  class LinkedListDeque<T> implements deque.Deque<T>{
     private final Node sentinel;
@@ -139,7 +138,25 @@ public  class LinkedListDeque<T> implements deque.Deque<T>{
     }
 
 
+    /**
+     * Get the item at the given index,
+     * starting at 0.
+     * If no such item exits, return null
+     *
+     * @return  return the item if it exists
+     * otherwise return null.
+     */
+    public T getRecursive(int index){
+        return getRecursivePrivate(index,sentinel);
+    }
 
+    private T getRecursivePrivate(int index, Node current){
+           if (index == 0){
+               return current.next.item;
+           }
+           current = current.next;
+           return getRecursivePrivate(index-1,current);
+    }
     @Override
     /* This method will return an iterator
      * which here is LinkedListed*/

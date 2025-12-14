@@ -149,6 +149,24 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    /* Get the item of the given index starting from zero */
+    public void getRecursiveLLDequeTest(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addFirst(10);
+        lld1.addLast(20);
+        lld1.addLast(30);
+
+        // should be 10
+        assertEquals("Should return 10", 10, (double) lld1.getRecursive(0), 0.0);
+
+        // should  be 30
+        assertEquals("Should return 30", 30, (double) lld1.getRecursive(2), 0.0);
+
+        // should be null
+        assertNull("Should return null",lld1.get(4));
+
+    }
+    @Test
     /* Test the empty deque*/
     public void iterateEmptyTest(){
        LinkedListDeque<Integer> empty = new LinkedListDeque<>();
